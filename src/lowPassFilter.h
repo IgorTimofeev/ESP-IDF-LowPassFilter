@@ -7,10 +7,14 @@
 namespace YOBA {
 	class LowPassFilter {
 		public:
-			static float getDeltaTimeFactor(const float factorPerSecond, const uint32_t deltaTimeUs) {
+			static float getDeltaTimeSFactor(const float factorPerSecond, const float deltaTimeS) {
+				return factorPerSecond * deltaTimeS;
+			}
+
+			static float getDeltaTimeUsFactor(const float factorPerSecond, const uint32_t deltaTimeUs) {
 				return factorPerSecond * static_cast<float>(deltaTimeUs) / 1'000'000.f;
 			}
-			
+
 			static float apply(const float oldValue, const float newValue, float factor) {
 				// Just in case
 				factor = std::clamp(factor, 0.f, 1.f);
